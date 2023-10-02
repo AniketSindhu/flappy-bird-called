@@ -53,17 +53,20 @@ const fetchUserScore = async (userId) => {
 };
 const updateUserScore = async (score, userId) => {
 	try {
+		const { userData } = fetchUser(userId);
 		const { scoreExist, userScore } = fetchUserScore(userId);
 		if (scoreExist) {
 			if (parseFloat(score) > parseFloat(userScore)) {
 				const userRef = doc(db, "flappyBirdhighScores", userId.toString());
 				await updateDoc(userRef, {
+					username: userData.username,
 					score: score,
 					timestamp: Date.now(),
 				});
 			}
 		} else {
 			await setDoc(doc(db, "flappyBirdhighScores", userId.toString()), {
+				username: userData.username,
 				userId: userId.toString(),
 				score: score,
 				timestamp: Date.now(),
