@@ -70,7 +70,6 @@ const updateUserScore = async (score, userId) => {
 				address: userData.address,
 				username: userData.userName,
 				userId: userId.toString(),
-				score: score,
 				timestamp: Date.now(),
 			});
 		}

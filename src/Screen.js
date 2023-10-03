@@ -33,42 +33,62 @@ function Screen() {
 		// console.log("score => ", state.score);
 		updateUserScore(parseFloat(state.score), userId);
 	}
-	return (
-		<div
-			style={{
-				...STYLES.SCREEN,
-				backgroundImage: `url(${backgroundByTime.current})`,
-			}}
-		>
-			{state.running && !state.gameover && (
-				<Score score={state.score} display={"SCREEN"} />
-			)}
-			{!state.running && !state.gameover && (
-				<img
-					style={{ ...STYLES.INSTRUCTION }}
-					src={instructionImg}
-					alt="instruction"
-				/>
-			)}
-			<Bird {...state} dispatch={dispatch} />
-			<Pipe
-				{...state}
-				initX={state.pipe.initX}
-				height={randomHeightPipe(SCREEN_HEIGHT, MAX_PIPE_HEIGHT_PERCENT)}
-				dispatch={dispatch}
-			/>
 
-			<Pipe
-				{...state}
-				initX={state.pipe.initX * 1.5 + state.pipe.w / 2}
-				height={randomHeightPipe(SCREEN_HEIGHT, MAX_PIPE_HEIGHT_PERCENT)}
-				dispatch={dispatch}
-			/>
-			<Ground gameover={state.gameover} />
-			{Boolean(state.gameover) && <Restart score={state.score} />}
-			{/* {state.gameover && updateData(state.score)} */}
-		</div>
-	);
+	if (userId != null) {
+		return (
+			<div
+				style={{
+					...STYLES.SCREEN,
+					backgroundImage: `url(${backgroundByTime.current})`,
+				}}
+			>
+				{state.running && !state.gameover && (
+					<Score score={state.score} display={"SCREEN"} />
+				)}
+				{!state.running && !state.gameover && (
+					<img
+						style={{ ...STYLES.INSTRUCTION }}
+						src={instructionImg}
+						alt="instruction"
+					/>
+				)}
+				<Bird {...state} dispatch={dispatch} />
+				<Pipe
+					{...state}
+					initX={state.pipe.initX}
+					height={randomHeightPipe(SCREEN_HEIGHT, MAX_PIPE_HEIGHT_PERCENT)}
+					dispatch={dispatch}
+				/>
+
+				<Pipe
+					{...state}
+					initX={state.pipe.initX * 1.5 + state.pipe.w / 2}
+					height={randomHeightPipe(SCREEN_HEIGHT, MAX_PIPE_HEIGHT_PERCENT)}
+					dispatch={dispatch}
+				/>
+				<Ground gameover={state.gameover} />
+				{Boolean(state.gameover) && <Restart score={state.score} />}
+				{/* {state.gameover && updateData(state.score)} */}
+			</div>
+		);
+	} else {
+		return (
+			<>
+				<div>
+					<p className="text-white">
+						Please Use link from the Bot{" "}
+						<a
+							className=" text-blue-500"
+							href="
+					http://t.me/blockbetgame_bot"
+						>
+							BlockBet Games Bot
+						</a>
+					</p>
+				</div>
+			</>
+		);
+	}
 }
 
 export default Screen;
