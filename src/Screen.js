@@ -1,4 +1,4 @@
-import React, { useReducer, useRef } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { STYLES, MAX_PIPE_HEIGHT_PERCENT, SCREEN_HEIGHT } from "./constant";
 import { getStateOfTime, randomHeightPipe } from "./util";
@@ -10,7 +10,7 @@ import { Restart } from "./cmp/Restart";
 import { Score } from "./cmp/Score";
 
 // db
-import { updateUserScore } from "./FireStoreCRUD";
+import { updateUserScore, fetchUserScore } from "./FireStoreCRUD";
 
 import backgroundDayImg from "./asset/sprites/background-day.png";
 import backgroundNightImg from "./asset/sprites/background-night.png";
@@ -18,6 +18,7 @@ import instructionImg from "./asset/sprites/instruction.png";
 
 function Screen() {
 	const [state, dispatch] = useReducer(reducer, initialState);
+	const [updated, setUpdated] = useState(false);
 	const backgroundByTime = useRef(
 		getStateOfTime() ? backgroundDayImg : backgroundNightImg
 	);
@@ -27,12 +28,16 @@ function Screen() {
 
 	// console.log("UserId => ", userId);
 	// console.log("Code => ", code);
-
-	if (state.gameover) {
-		// console.log("gameOver");
-		// console.log("score => ", state.score);
-		updateUserScore(parseFloat(state.score), userId);
-	}
+	useEffect(() => {
+		if (state.gameover) {
+			if (!updated) {
+				console.log("gameOver");
+				// console.log("score => ", state.score);
+				updateUserScore(parseFloat(state.score), userId);
+				setUpdated(true);
+			}
+		}
+	}, [state, userId, updated]);
 
 	if (userId != null) {
 		return (

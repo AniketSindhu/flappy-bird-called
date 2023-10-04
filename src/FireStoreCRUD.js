@@ -23,13 +23,13 @@ const fetchUser = async (userId) => {
 	} else {
 		return {
 			userExist: false,
-			userData: undefined,
+			userData: {},
 		};
 	}
 };
 const fetchUserScore = async (userId) => {
 	try {
-		const { userExist } = fetchUser(userId);
+		const { userExist } = await fetchUser(userId);
 
 		if (userExist) {
 			const userRef = doc(db, "flappyBirdhighScores", userId.toString());
@@ -54,7 +54,7 @@ const fetchUserScore = async (userId) => {
 const updateUserScore = async (score, userId) => {
 	try {
 		const { userData } = await fetchUser(userId);
-		const { scoreExist, userScore } = fetchUserScore(userId);
+		const { scoreExist, userScore } = await fetchUserScore(userId);
 		if (scoreExist) {
 			if (parseFloat(score) > parseFloat(userScore)) {
 				const userRef = doc(db, "flappyBirdhighScores", userId.toString());
@@ -70,6 +70,7 @@ const updateUserScore = async (score, userId) => {
 				address: userData.address,
 				username: userData.userName,
 				userId: userId.toString(),
+				score: score,
 				timestamp: Date.now(),
 			});
 		}

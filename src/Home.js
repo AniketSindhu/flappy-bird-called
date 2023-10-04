@@ -25,7 +25,7 @@ function Home() {
 			// 	setScores(newData);
 			// 	console.log(scores, newData);
 			// });
-			const userRef = doc(db, "highScores", "0");
+			const userRef = doc(db, "flappyBirdhighScores", "1251227352");
 			const snapShot = await getDoc(userRef);
 			if (snapShot.exists()) {
 				const exist = true;
