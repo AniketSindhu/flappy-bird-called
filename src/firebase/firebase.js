@@ -17,13 +17,13 @@ import { getFirestore } from "firebase/firestore";
 // };
 
 const firebaseConfig = {
-	apiKey: "AIzaSyC8qrbAYUqVfrhcTLIzzSctR9Yti31xZso",
-	authDomain: "blockbet-telegram.firebaseapp.com",
-	databaseURL: "https://blockbet-telegram-default-rtdb.firebaseio.com",
-	projectId: "blockbet-telegram",
-	storageBucket: "blockbet-telegram.appspot.com",
-	messagingSenderId: "610788993704",
-	appId: "1:610788993704:web:b199f214adc64e1c56309d",
+  apiKey: "AIzaSyDHEDEO8QXtUkiAbNHtHtuoGQxKRXjOOA8",
+  authDomain: "games-blockbet.firebaseapp.com",
+  databaseURL: "https://games-blockbet-default-rtdb.firebaseio.com",
+  projectId: "games-blockbet",
+  storageBucket: "games-blockbet.appspot.com",
+  messagingSenderId: "266929652135",
+  appId: "1:266929652135:web:e3202a64f1bbac23273682"
 };
 
 // Initialize Firebase
