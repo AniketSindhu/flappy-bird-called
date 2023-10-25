@@ -29,9 +29,9 @@ const fetchUser = async (userId) => {
 };
 const fetchUserScore = async (userId) => {
 	try {
-		const { userExist } = await fetchUser(userId);
+		const { userExist, userData } = await fetchUser(userId);
 
-		if (userExist) {
+		if (userExist && userData.isConnected) {
 			const userRef = doc(db, "flappyBirdhighScores", userId.toString());
 			const snapShot = await getDoc(userRef);
 			if (snapShot.exists()) {
@@ -46,6 +46,8 @@ const fetchUserScore = async (userId) => {
 					userScore: undefined,
 				};
 			}
+		} else {
+			console.error("User Not Connected/Account Doesn't exist");
 		}
 	} catch (error) {
 		console.error("error fetching Data => ", error);
@@ -82,4 +84,4 @@ const updateUserScore = async (score, userId) => {
 	}
 };
 
-export { addData, updateUserScore, fetchUserScore };
+export { addData, updateUserScore, fetchUserScore, fetchUser };
